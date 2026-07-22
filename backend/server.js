@@ -9,6 +9,9 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const authRoutes = require('./src/routes/authRoutes');
+const contentRoutes = require('./src/routes/contentRoutes');
+
 const app = express();
 
 app.use(cors({
@@ -21,6 +24,9 @@ app.use(cookieParser());
 app.get('/', (req, res) => {
   res.json({ message: 'CMS Backend API is running' });
 });
+
+app.use('/api/auth', authRoutes);
+app.use('/api/content', contentRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected successfully'))
